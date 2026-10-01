@@ -1,0 +1,49 @@
+// Don't forget to tell Prisma about your edits to this file using
+// `yarn rw prisma migrate dev` or `yarn rw prisma db push`.
+// `migrate` is like committing while `push` is for prototyping.
+// Read more about both here:
+// https://www.prisma.io/docs/orm/prisma-migrate
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = "native"
+}
+
+// Define your own datamodels here and run `yarn redwood prisma migrate dev`
+// to create migrations for them and apply to your dev DB.
+
+model Job {
+  id           Int           @id @default(autoincrement())
+  title        String
+  company      String        @default("Confidential Client")
+  location     String        @default("Dublin, Ireland")
+  jobType      String        @default("Full-time")
+  salary       String?
+  category     String?
+  description  String
+  requirements String?
+  active       Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  applications Application[]
+}
+
+model Application {
+  id          Int      @id @default(autoincrement())
+  jobId       Int
+  job         Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  fullName    String
+  email       String
+  phone       String?
+  coverLetter String?
+  experience  String?
+  cvLink      String?
+  location    String?
+  visaStatus  String?
+  consent     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
