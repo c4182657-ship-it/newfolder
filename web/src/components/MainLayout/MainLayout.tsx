@@ -41,9 +41,7 @@ const MainLayout = ({ children }: Props) => {
 
       <footer className="border-t bg-white">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-center text-sm text-gray-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:text-left">
-          <span>
-            Built for Dublin construction hiring • Simple job platform
-          </span>
+          <span>Built for Dublin construction hiring • Simple job platform</span>
           <span className="flex justify-center gap-4">
             <Link to={routes.privacy()} className="hover:underline">
               Privacy

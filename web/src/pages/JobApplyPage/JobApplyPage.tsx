@@ -1,44 +1,20 @@
 import { useEffect, useState } from 'react'
 
 import { Link, routes, useParams } from '@redwoodjs/router'
-import { useQuery } from '@redwoodjs/web'
 
 import MainLayout from 'src/components/MainLayout/MainLayout'
-
-const JOB_QUERY = gql`
-  query ApplyJobQuery($id: Int!) {
-    job(id: $id) {
-      id
-      title
-      company
-      location
-    }
-  }
-`
+import { getJobById } from 'src/data/jobs'
 
 const JobApplyPage = () => {
   const { id } = useParams()
   const jobId = Number(id)
-
-  const { loading, data } = useQuery(JOB_QUERY, {
-    variables: { id: jobId },
-    skip: !jobId,
-  })
+  const job = getJobById(jobId)
 
   const [nextUrl, setNextUrl] = useState('/success')
   useEffect(() => {
     setNextUrl(`${window.location.origin}/success`)
   }, [])
 
-  if (loading) {
-    return (
-      <MainLayout>
-        <div className="py-10 text-center text-gray-500">Loading…</div>
-      </MainLayout>
-    )
-  }
-
-  const job = data && data.job ? data.job : null
   if (!job) {
     return (
       <MainLayout>
@@ -52,7 +28,7 @@ const JobApplyPage = () => {
   return (
     <MainLayout>
       <Link
-        to={routes.jobDetail({ id: jobId })}
+        to={routes.jobDetail({ id: job.id })}
         className="mb-4 inline-block text-sm text-blue-600 hover:underline"
       >
         ← Back to {job.title}
@@ -76,7 +52,7 @@ const JobApplyPage = () => {
             name="_subject"
             value={`New application: ${job.title}`}
           />
-          <input type="hidden" name="jobId" value={String(jobId)} />
+          <input type="hidden" name="jobId" value={String(job.id)} />
           <input type="hidden" name="jobTitle" value={job.title} />
           <input type="hidden" name="company" value={job.company} />
           <input type="hidden" name="jobLocation" value={job.location} />
@@ -127,10 +103,7 @@ const JobApplyPage = () => {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label
-                htmlFor="applicantLocation"
-                className="text-sm font-medium"
-              >
+              <label htmlFor="applicantLocation" className="text-sm font-medium">
                 Current location
               </label>
               <input

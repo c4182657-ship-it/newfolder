@@ -1,45 +1,30 @@
 import { Link, routes } from '@redwoodjs/router'
-import { useQuery } from '@redwoodjs/web'
 
 import MainLayout from 'src/components/MainLayout/MainLayout'
-
-const JOBS_QUERY = gql`
-  query JobsQuery {
-    jobs(activeOnly: true) {
-      id
-      title
-      company
-      location
-      jobType
-      salary
-      category
-      description
-      createdAt
-    }
-  }
-`
+import { jobs } from 'src/data/jobs'
 
 const HomePage = () => {
-  const { loading, error, data } = useQuery(JOBS_QUERY)
-
   return (
     <MainLayout>
-      <div className="mb-8">
-        <p className="max-w-2xl text-gray-600">
+      <div className="mb-8 rounded-lg bg-gray-900 p-8 text-white">
+        <h1 className="text-3xl font-extrabold sm:text-4xl">
+          Simple construction jobs in Dublin
+        </h1>
+        <p className="mt-3 max-w-2xl text-gray-300">
           Click 1 job to see details, then apply with your name, email and CV
           link. No account needed.
         </p>
         <div className="mt-4 flex flex-wrap gap-2 text-xs">
-          <span className="rounded-full bg-white px-3 py-1 shadow-sm">
+          <span className="rounded-full bg-white/10 px-3 py-1">
             Civil Engineer
           </span>
-          <span className="rounded-full bg-white px-3 py-1 shadow-sm">
+          <span className="rounded-full bg-white/10 px-3 py-1">
             Quantity Surveyor
           </span>
-          <span className="rounded-full bg-white px-3 py-1 shadow-sm">
+          <span className="rounded-full bg-white/10 px-3 py-1">
             Site Manager
           </span>
-          <span className="rounded-full bg-white px-3 py-1 shadow-sm">
+          <span className="rounded-full bg-white/10 px-3 py-1">
             Health &amp; Safety
           </span>
         </div>
@@ -47,25 +32,13 @@ const HomePage = () => {
 
       <h2 className="mb-4 text-xl font-bold text-gray-900">Available jobs</h2>
 
-      {loading ? (
-        <div className="py-10 text-center text-gray-500">Loading jobs…</div>
-      ) : null}
-
-      {error ? (
-        <div className="rounded-lg bg-red-50 p-4 text-red-700">
-          Failed to load jobs: {error.message}
-        </div>
-      ) : null}
-
-      {data && data.jobs && data.jobs.length === 0 ? (
+      {jobs.length === 0 ? (
         <div className="rounded-lg bg-white p-8 text-center shadow">
           <p className="text-gray-600">No jobs yet. Check back soon.</p>
         </div>
-      ) : null}
-
-      {data && data.jobs ? (
+      ) : (
         <div className="grid gap-4">
-          {data.jobs.map((job) => (
+          {jobs.map((job) => (
             <Link
               key={job.id}
               to={routes.jobDetail({ id: job.id })}
@@ -100,7 +73,7 @@ const HomePage = () => {
             </Link>
           ))}
         </div>
-      ) : null}
+      )}
     </MainLayout>
   )
 }
