@@ -6,25 +6,22 @@ import { jobs } from 'src/data/jobs'
 const HomePage = () => {
   return (
     <MainLayout>
-      <div className="mb-8 rounded-lg bg-gray-900 p-8 text-white">
-        <h1 className="text-3xl font-extrabold sm:text-4xl">
-          Simple construction jobs in Dublin
-        </h1>
-        <p className="mt-3 max-w-2xl text-gray-300">
+      <div className="mb-8">
+        <p className="max-w-2xl text-gray-600">
           Click 1 job to see details, then apply with your name, email and CV
           link. No account needed.
         </p>
         <div className="mt-4 flex flex-wrap gap-2 text-xs">
-          <span className="rounded-full bg-white/10 px-3 py-1">
+          <span className="rounded-full bg-white px-3 py-1 shadow-sm">
             Civil Engineer
           </span>
-          <span className="rounded-full bg-white/10 px-3 py-1">
+          <span className="rounded-full bg-white px-3 py-1 shadow-sm">
             Quantity Surveyor
           </span>
-          <span className="rounded-full bg-white/10 px-3 py-1">
+          <span className="rounded-full bg-white px-3 py-1 shadow-sm">
             Site Manager
           </span>
-          <span className="rounded-full bg-white/10 px-3 py-1">
+          <span className="rounded-full bg-white px-3 py-1 shadow-sm">
             Health &amp; Safety
           </span>
         </div>

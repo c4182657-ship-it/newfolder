@@ -11,7 +11,6 @@ const Routes = () => {
         page={ApplicationSuccessPage}
         name="applicationSuccess"
       />
-      <Route path="/resources" page={ResourcesPage} name="resources" />
       <Route path="/privacy" page={PrivacyPage} name="privacy" />
       <Route notfound page={NotFoundPage} />
     </Router>

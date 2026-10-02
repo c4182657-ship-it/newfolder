@@ -27,12 +27,6 @@ const MainLayout = ({ children }: Props) => {
             >
               Jobs
             </Link>
-            <Link
-              to={routes.resources()}
-              className="rounded-md px-3 py-2 font-medium text-gray-700 hover:bg-gray-100"
-            >
-              Resources
-            </Link>
           </nav>
         </div>
       </header>
@@ -45,9 +39,6 @@ const MainLayout = ({ children }: Props) => {
           <span className="flex justify-center gap-4">
             <Link to={routes.privacy()} className="hover:underline">
               Privacy
-            </Link>
-            <Link to={routes.resources()} className="hover:underline">
-              Rent Tax Credit info
             </Link>
           </span>
         </div>
